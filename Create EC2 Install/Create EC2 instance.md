@@ -13,7 +13,7 @@ PS D:\Sri Claude\uigen>
 
 2) Create a terraform file
 
-3) 
+3) Terraform commands
 
 terraform init                      #Initialize config
 terraform plan 			# Dry run before you apply
