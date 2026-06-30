@@ -1,4 +1,4 @@
-# Terraform to create a new EC2 instance
+## Terraform to create a new EC2 instance
 
 provider "aws" {
    region = "er=west-1"
@@ -18,12 +18,12 @@ resource "aws_instance" "myec2" {
 # Run this to create a plugin for azure
 provider azurerm {}
 
-**LINKS :**
+## LINKS 
 https://registry.terraform.io/
 
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
-**COMMANDS:**
+## COMMANDS:
 terraform init
 terraform plan
 terraform apply
