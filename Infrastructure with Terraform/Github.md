@@ -36,7 +36,9 @@ terraform apply
 ```
 
 #### How to create token
-GitHub -> Settings -> Developer Settings ->Personal Access Tokens -> Generate new token
- name - terraform
- repo access - All repositories { Change to selected repo as required }
-Permission - Administration - Change to Read and Write - GENERATE TOKEN
+```sh
+* GitHub -> Settings -> Developer Settings ->Personal Access Tokens -> Generate new token
+* name - terraform
+ * repo access - All repositories { Change to selected repo as required }
+* Permission - Administration - Change to Read and Write - GENERATE TOKEN
+```
