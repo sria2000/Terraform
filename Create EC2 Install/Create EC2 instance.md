@@ -7,13 +7,20 @@ Tip: You can deliver temporary credentials to the AWS CLI using your AWS Console
 
 AWS Access Key ID [None]: YOUR_AWS_ACCESS_KEY
 AWS Secret Access Key [None]: YOUR_AWS_SECRET_ACCESS_KEY
-Default region name [None]: eu-west-2
+Default region name [None]: eu-west-2 or wu-west-1
 Default output format [None]: 
 PS D:\Sri Claude\uigen>
 
-2) Create a terraform file
+2) aws sts get-caller-identity
+   Check username & Other details
+   
+2) Create a terraform file to create a ec2 instance
 
-3) Terraform commands
+   Check myfirstec2.tf file
+
+   
+
+4) Terraform commands
 
 terraform init                      #Initialize config
 terraform plan 			# Dry run before you apply
