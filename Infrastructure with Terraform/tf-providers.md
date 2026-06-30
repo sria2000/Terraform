@@ -2,15 +2,37 @@
 
 Providers are plugins that allow Terraform to interact with cloud platforms, SaaS providers, and other APIs.
 
-## Types of Providers
+---
 
-### a) Official Providers
+# Types of Providers
+
+## a) Official Providers
 
 - Officially maintained by **HashiCorp**.
-- Recommended for **production (PRD)** environments.
+- Recommended for **Production (PRD)** environments.
 - The provider source contains **`hashicorp`**.
 
-**Example:**
+### Documentation
+
+Terraform Registry:
+
+https://registry.terraform.io
+
+### Example: Azure Provider
+
+```hcl
+provider "azurerm" {
+  features {}
+}
+```
+
+Initialize the provider:
+
+```bash
+terraform init
+```
+
+### Example: AWS Provider
 
 ```hcl
 terraform {
@@ -21,19 +43,27 @@ terraform {
     }
   }
 }
+
+provider "aws" {
+  region = "us-east-1"
+}
 ```
 
 ---
 
-### b) Partner Providers
+## b) Partner Providers
 
 - Maintained by HashiCorp technology partners.
-- Examples:
+- Common examples include:
   - Alibaba Cloud
   - MongoDB
   - DigitalOcean
 
-**Example:**
+### DigitalOcean Provider Documentation
+
+https://registry.terraform.io/providers/digitalocean/digitalocean/latest/docs
+
+### Example
 
 ```hcl
 terraform {
@@ -44,15 +74,27 @@ terraform {
     }
   }
 }
+
+provider "digitalocean" {
+  token = var.do_token
+}
 ```
+
+Initialize the provider:
+
+```bash
+terraform init
+```
+
+> **Best Practice:** Store the API token in a Terraform variable or environment variable instead of hardcoding it.
 
 ---
 
-### c) Community Providers
+## c) Community Providers
 
 - Developed and maintained by individual contributors or the open-source community.
-- Suitable for niche integrations.
-- Review documentation and community support before using them in production.
+- Often used for niche platforms and custom integrations.
+- Evaluate documentation, maintenance activity, and community support before using them in production.
 
 ---
 
@@ -60,16 +102,61 @@ terraform {
 
 ## Initialize Terraform
 
-Downloads the required providers and initializes the working directory.
+```bash
+terraform init
+```
+
+### What `terraform init` Does
+
+- Downloads the required provider plugins.
+- Creates the `.terraform` directory.
+- Installs the correct provider versions.
+- Creates or updates the `.terraform.lock.hcl` lock file.
+- Initializes the backend (if configured).
+- Prepares the working directory for:
+  - `terraform plan`
+  - `terraform apply`
+  - `terraform destroy`
+
+---
+
+# Typical Workflow
+
+1. Create your Terraform configuration.
+
+2. Initialize Terraform.
 
 ```bash
 terraform init
 ```
 
-### What `terraform init` does
+3. Review the execution plan.
 
-- Downloads the required providers.
-- Creates the `.terraform` directory.
-- Downloads provider plugins.
-- Creates or updates the `.terraform.lock.hcl` lock file.
-- Prepares the working directory for `terraform plan` and `terraform apply`.
+```bash
+terraform plan
+```
+
+4. Create the infrastructure.
+
+```bash
+terraform apply
+```
+
+5. Destroy the infrastructure (if required).
+
+```bash
+terraform destroy
+```
+
+---
+
+# Best Practices
+
+- Use **Official (HashiCorp)** providers whenever possible for production workloads.
+- Specify provider versions using the `required_providers` block.
+- Never hardcode credentials or API tokens in Terraform files.
+- Store secrets using:
+  - Environment variables
+  - Terraform variables (`*.tfvars`)
+  - Cloud secret managers (AWS Secrets Manager, Azure Key Vault, HashiCorp Vault, etc.)
+- Commit the `.terraform.lock.hcl` file to version control to ensure consistent provider versions across your team.
