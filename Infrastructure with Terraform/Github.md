@@ -21,8 +21,8 @@ provider "github" {
 }
 
 resource "github_repository" "example" {
-  name        = "example"
-  description = "My awesome codebase"
+  name        = "sri-example-repository"
+  description = "Sri's codebase"
 
   visibility = "public"
 
@@ -34,3 +34,9 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+#### How to create token
+GitHub -> Settings -> Developer Settings ->Personal Access Tokens -> Generate new token
+ name - terraform
+ repo access - All repositories { Change to selected repo as required }
+Permission - Administration - Change to Read and Write - GENERATE TOKEN
