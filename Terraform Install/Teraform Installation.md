@@ -1,131 +1,215 @@
-Terraform Notes (Beginner Overview)
-🌍 What is Terraform?
+# Terraform Notes (Beginner Overview)
+
+---
+
+## 🌍 What is Terraform?
 
 Terraform was created by HashiCorp.
 
-It is an Infrastructure as Code (IaC) tool used to define and provision cloud infrastructure using code.
+It is an **Infrastructure as Code (IaC)** tool used to define and provision cloud infrastructure using code.
 
-☁️ Infrastructure as Code (IaC)
+---
+
+## ☁️ Infrastructure as Code (IaC)
 
 IaC means managing infrastructure using code instead of manual configuration.
 
-Common IaC tools:
+### Common IaC tools:
 
-AWS → CloudFormation Templates (CFT)
-Azure → Azure Resource Manager (ARM) templates
-OpenStack → Heat templates
-Multi-cloud → Terraform
+- AWS → CloudFormation Templates (CFT)
+- Azure → Azure Resource Manager (ARM) templates
+- OpenStack → Heat templates
+- Multi-cloud → Terraform
 
-IaC can be written using:
+---
 
-Python
-Shell scripts
-YAML
-JSON
-Templates (Cloud-specific formats)
-📦 What CloudFormation does (AWS example)
+### IaC can be written using:
+
+- Python
+- Shell scripts
+- YAML
+- JSON
+- Cloud-specific templates
+
+---
+
+## 📦 What CloudFormation does (AWS example)
 
 CloudFormation Templates (CFT) are used to create resources such as:
 
-EC2 (VMs)
-S3 buckets
-Storage resources (like Blob equivalents in other clouds)
-🚀 Why Terraform?
+- EC2 (Virtual Machines)
+- S3 Buckets
+- Storage services (similar to Blob storage in Azure)
 
-Terraform is used because it is multi-cloud.
+---
+
+## 🚀 Why Terraform?
+
+Terraform is popular because it is **multi-cloud**.
 
 It works across:
 
-AWS
-Azure
-GCP
-OpenStack
-Key Idea:
+- AWS
+- Azure
+- Google Cloud Platform (GCP)
+- OpenStack
 
-You write one configuration (HCL) and Terraform applies it to different cloud providers.
+### Key Idea:
+You write one configuration (HCL), and Terraform provisions infrastructure across different cloud providers.
 
-🧠 Key Concepts
-Uses HCL (HashiCorp Configuration Language)
-Infrastructure is defined as code
-Terraform talks to cloud providers via APIs
-Used heavily by DevOps & Cloud Engineers
-Helps build scalable and highly available infrastructure
-🔄 Terraform Competitors
-Crossplane
-Pulumi
-⚙️ How Terraform Works
-You write HCL configuration files
-Terraform reads the file
-It calls cloud provider APIs (AWS/Azure/GCP)
-It creates or updates infrastructure
-🛠️ Installing Terraform
+---
+
+## 🧠 Key Concepts
+
+- Uses **HCL (HashiCorp Configuration Language)**
+- Infrastructure is defined as code
+- Terraform interacts with cloud providers via APIs
+- Widely used in DevOps & Cloud Engineering
+- Helps build scalable and highly available infrastructure
+
+---
+
+## 🔄 Terraform Competitors
+
+- Crossplane
+- Pulumi
+
+---
+
+## ⚙️ How Terraform Works
+
+1. You write HCL configuration files
+2. Terraform reads the configuration
+3. It calls cloud provider APIs (AWS / Azure / GCP)
+4. It creates or updates infrastructure
+
+---
+
+## 🛠️ Installing Terraform
+
 Official download:
 
 https://developer.hashicorp.com/terraform/install
 
-Windows install (PowerShell):
+### Windows Install (PowerShell)
+
+```bash
 winget install HashiCorp.Terraform
-Verify installation:
+```
+
+### Verify Installation
+
+```bash
 terraform --version
+```
 
-Example:
+Example output:
 
+```text
 Terraform v1.15.5
-💻 Development Setup
+```
+
+---
+
+## 💻 Development Setup
 
 Recommended tools:
 
-Git Bash (Windows)
-VS Code
-☁️ GitHub Codespaces (Recommended for practice)
+- Git Bash (Windows)
+- VS Code
+
+---
+
+## ☁️ GitHub Codespaces (Recommended)
 
 Codespaces is a cloud-based development environment hosted by GitHub.
 
-Steps:
-Launch Codespace
-Add Dev Container configuration
-Search and add:
-Terraform
-tflint
-tfsec / tfgrype (security tools)
-Optionally add:
-AWS CLI dev container (keep default settings)
-Rebuild container (first setup takes time)
-🧰 AWS CLI Installation (Windows)
+### Steps:
+
+- Launch Codespace
+- Add Dev Container configuration
+- Install tools:
+  - Terraform
+  - tflint
+  - tfsec / tfgrype (security tools)
+- Optionally add AWS CLI dev container
+- Rebuild container (first setup may take time)
+
+---
+
+## 🧰 AWS CLI Installation (Windows)
+
+```bash
 msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
-🔐 AWS Setup
-Login to AWS Console
-Use MFA (Duo / authenticator app)
-Create:
-Access Key
-Secret Access Key
-🔗 Connect AWS from Codespace / Terminal
+```
+
+---
+
+## 🔐 AWS Setup
+
+- Login to AWS Console
+- Enable MFA (Duo / Authenticator app)
+- Create:
+  - Access Key
+  - Secret Access Key
+
+---
+
+## 🔗 Connect AWS from Terminal / Codespaces
+
+```bash
 aws configure
+```
 
 Enter:
 
-AWS Access Key
-AWS Secret Key
-Default region (IMPORTANT)
+- AWS Access Key
+- AWS Secret Key
+- Default region
 
-Example region:
+---
 
+### Example Region:
+
+```text
 eu-west-2   # London
+```
 
-❌ Wrong example:
+---
 
+### ❌ Wrong Example:
+
+```text
 es-east-1
-🧪 Test AWS Connection
+```
+
+---
+
+## 🧪 Test AWS Connection
+
+```bash
 aws s3 ls
-⚠️ Common Issue (Your Error)
+```
+
+---
+
+## ⚠️ Common Issue
 
 If you see:
 
+```text
 Could not connect to endpoint URL: https://s3.es-east-1.amazonaws.com/
+```
 
-It means:
-👉 Incorrect AWS region is configured
+### Meaning:
+Wrong AWS region is configured.
 
-Fix:
+---
 
+## 🛠️ Fix
+
+```bash
 aws configure set region eu-west-2
+```
+
+---
