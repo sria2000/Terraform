@@ -1,29 +1,32 @@
-# Conditional Expressions in Terraform
+# Terraform Conditional Expressions
 
-## Documentation Referred
+## Overview
 
-Terraform Expressions Documentation:
+Conditional expressions allow Terraform to make decisions based on the value of variables or expressions.
 
-https://developer.hashicorp.com/terraform/language/expressions/conditionals
+Instead of maintaining multiple Terraform configurations for different environments, you can use a **single configuration** that dynamically selects values at runtime.
+
+### Common Use Cases
+
+- Deploy different EC2 instance sizes for Development and Production.
+- Enable or disable resources.
+- Select AMIs based on region.
+- Configure different storage sizes.
+- Enable monitoring only in Production.
+- Configure backup policies.
 
 ---
 
-# Overview
+## Documentation
 
-Conditional expressions allow Terraform to make decisions based on variable values.
-
-This is useful when deploying infrastructure for different environments.
-
-Example:
-
-- **Development** → Small EC2 Instance (`t2.micro`)
-- **Production** → Large EC2 Instance (`m5.large`)
-
-Instead of maintaining multiple Terraform files, a single configuration can dynamically choose the appropriate resource configuration.
+- Terraform Expressions Documentation:
+  https://developer.hashicorp.com/terraform/language/expressions/conditionals
 
 ---
 
 # Conditional Expression Syntax
+
+Terraform uses the following syntax:
 
 ```hcl
 condition ? true_value : false_value
@@ -41,7 +44,30 @@ variable == "value" ? "True Result" : "False Result"
 
 ---
 
-# Example 1 - Basic EC2 Instance
+# Why Use Conditional Expressions?
+
+Without conditional expressions, you might need multiple Terraform files:
+
+```
+dev.tf
+
+prod.tf
+
+test.tf
+```
+
+Instead, a single Terraform configuration can automatically select the correct values.
+
+Example:
+
+| Environment | Instance Type |
+|-------------|---------------|
+| Development | t2.micro |
+| Production | m5.large |
+
+---
+
+# Example 1 - Hardcoded EC2 Instance
 
 ## Base Code
 
@@ -76,27 +102,33 @@ variable "environment" {
 }
 
 resource "aws_instance" "myec2" {
-  ami           = "ami-00c39f71452c08778"
+
+  ami = "ami-00c39f71452c08778"
 
   instance_type = var.environment == "development" ? "t2.micro" : "m5.large"
+
 }
 ```
 
 ### Explanation
 
-Condition:
+Terraform evaluates:
 
 ```hcl
 var.environment == "development"
 ```
 
-If **true**
+If the condition is:
+
+**True**
 
 ```text
 t2.micro
 ```
 
-If **false**
+If the condition is:
+
+**False**
 
 ```text
 m5.large
@@ -123,19 +155,19 @@ Environment
 
 production
 
-        │
+      │
 
-        ▼
+      ▼
 
 Is Environment = development?
 
-        │
+      │
 
-     FALSE
+   FALSE
 
-        │
+      │
 
-        ▼
+      ▼
 
 Launch
 
@@ -144,7 +176,7 @@ m5.large
 
 ---
 
-# Example 3 - Using NOT Equal (!=)
+# Example 3 - Using NOT Equal (`!=`)
 
 ```hcl
 variable "environment" {
@@ -152,9 +184,11 @@ variable "environment" {
 }
 
 resource "aws_instance" "myec2" {
-  ami           = "ami-00c39f71452c08778"
+
+  ami = "ami-00c39f71452c08778"
 
   instance_type = var.environment != "development" ? "t2.micro" : "m5.large"
+
 }
 ```
 
@@ -172,7 +206,7 @@ When:
 environment = production
 ```
 
-Condition is **true**.
+The condition is **true**.
 
 Terraform launches:
 
@@ -180,12 +214,10 @@ Terraform launches:
 t2.micro
 ```
 
----
+If:
 
-If you change:
-
-```hcl
-default = "development"
+```text
+environment = development
 ```
 
 Then:
@@ -212,35 +244,43 @@ instance_type = var.environment != "" ? "t2.micro" : "m5.large"
 
 ### Explanation
 
-Condition:
+If the variable contains any value:
 
-```hcl
-var.environment != ""
+```text
+production
+development
+test
 ```
 
-If the variable contains any value (is not empty), Terraform selects:
+Terraform selects:
 
 ```text
 t2.micro
 ```
 
-If the variable is an empty string (`""`), Terraform selects:
+If the value is empty:
+
+```text
+""
+```
+
+Terraform selects:
 
 ```text
 m5.large
 ```
 
-Example:
+### Example
 
 | Environment Value | Result |
 |-------------------|--------|
-| `"production"` | `t2.micro` |
-| `"development"` | `t2.micro` |
-| `""` | `m5.large` |
+| production | t2.micro |
+| development | t2.micro |
+| "" | m5.large |
 
 ---
 
-# Example 5 - Multiple Conditional Expressions
+# Example 5 - Multiple Conditions
 
 Terraform supports combining multiple conditions using logical operators.
 
@@ -263,28 +303,15 @@ resource "aws_instance" "myec2" {
 
   ami = "ami-00c39f71452c08778"
 
-  instance_type = var.environment == "production" && var.region == "us-east-1" ? "m5.large" : "t2.micro"
+  instance_type = var.environment == "production" &&
+                  var.region == "us-east-1"
+                  ? "m5.large"
+                  : "t2.micro"
 
 }
 ```
 
----
-
-# Explanation
-
-Condition:
-
-```text
-Environment == production
-
-AND
-
-Region == us-east-1
-```
-
-Both conditions must be **true**.
-
-Decision table:
+### Decision Table
 
 | Environment | Region | Instance Type |
 |-------------|--------|---------------|
@@ -295,14 +322,13 @@ Decision table:
 
 Since:
 
-```text
+```
 Environment = production
+
 Region = ap-south-1
 ```
 
-Second condition is false.
-
-Terraform creates:
+Terraform launches:
 
 ```text
 t2.micro
@@ -310,35 +336,157 @@ t2.micro
 
 ---
 
+# Example 6 - Creating Resources Conditionally
+
+Conditional expressions are frequently used with the **`count` meta-argument** to create or skip resources.
+
+## Terraform Configuration
+
+### `conditional.tf`
+
+```hcl
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "YOUR-ACCESS-KEY"
+  secret_key = "YOUR-SECRET-KEY"
+}
+
+variable "istest" {}
+
+resource "aws_instance" "dev" {
+
+  ami           = "ami-082b5a644766e0e6f"
+  instance_type = "t2.micro"
+
+  count = var.istest == true ? 3 : 0
+
+}
+
+resource "aws_instance" "prod" {
+
+  ami           = "ami-082b5a644766e0e6f"
+  instance_type = "t2.large"
+
+  count = var.istest == false ? 1 : 0
+
+}
+```
+
+### `terraform.tfvars`
+
+```hcl
+istest = false
+```
+
+---
+
+## How It Works
+
+### When:
+
+```hcl
+istest = true
+```
+
+Terraform evaluates:
+
+```hcl
+count = var.istest == true ? 3 : 0
+```
+
+Result:
+
+- 3 Development EC2 instances
+- 0 Production EC2 instances
+
+---
+
+### When:
+
+```hcl
+istest = false
+```
+
+Terraform evaluates:
+
+```hcl
+count = var.istest == false ? 1 : 0
+```
+
+Result:
+
+- 0 Development EC2 instances
+- 1 Production EC2 instance
+
+---
+
+## Resource Creation Flow
+
+### `istest = true`
+
+```text
+Is Test Environment?
+
+        │
+      TRUE
+        │
+        ▼
+
+Create
+
+3 × t2.micro
+
+Skip Production
+```
+
+---
+
+### `istest = false`
+
+```text
+Is Test Environment?
+
+        │
+      FALSE
+        │
+        ▼
+
+Skip Development
+
+Create
+
+1 × t2.large
+```
+
+---
+
 # Logical Operators
 
-## AND (&&)
+## AND (`&&`)
 
 Both conditions must be true.
 
 ```hcl
-var.environment == "production" && var.region == "us-east-1"
+var.environment == "production" &&
+var.region == "us-east-1"
 ```
 
 ---
 
-## OR (||)
+## OR (`||`)
 
 At least one condition must be true.
 
-Example:
-
 ```hcl
-instance_type = var.environment == "production" || var.region == "us-east-1" ? "m5.large" : "t2.micro"
+var.environment == "production" ||
+var.region == "us-east-1"
 ```
 
 ---
 
-## NOT Equal (!=)
+## NOT Equal (`!=`)
 
 Checks whether two values are different.
-
-Example:
 
 ```hcl
 var.environment != "development"
@@ -349,50 +497,69 @@ var.environment != "development"
 # Conditional Expression Flow
 
 ```text
-          Condition
+           Condition
 
                │
 
-      Is it TRUE ?
+        Is it TRUE?
 
-        /         \
+         /         \
 
-     Yes           No
+      Yes           No
 
-      │             │
+       │             │
 
-True Value     False Value
+ True Value     False Value
 ```
 
 ---
 
-# Real-World Use Cases
+# Real-World Examples
 
-Conditional expressions are commonly used for:
-
-- Selecting EC2 instance types.
-- Choosing AMIs based on region.
-- Creating resources only for production.
-- Selecting storage sizes.
-- Enabling or disabling monitoring.
-- Configuring backup policies.
-
-Example:
+## Environment-based EC2
 
 ```hcl
-allocated_storage = var.environment == "production" ? 100 : 20
+instance_type = var.environment == "production"
+                ? "m5.large"
+                : "t2.micro"
 ```
 
-Production database:
+---
+
+## Database Storage
+
+```hcl
+allocated_storage = var.environment == "production"
+                    ? 100
+                    : 20
+```
+
+Production:
 
 ```text
 100 GB
 ```
 
-Development database:
+Development:
 
 ```text
 20 GB
+```
+
+---
+
+## Enable Monitoring
+
+```hcl
+monitoring = var.environment == "production"
+```
+
+---
+
+## Create Resources Only in Production
+
+```hcl
+count = var.environment == "production" ? 1 : 0
 ```
 
 ---
@@ -402,7 +569,8 @@ Development database:
 - Keep conditional expressions simple and readable.
 - Use variables instead of hardcoded values.
 - Use logical operators (`&&`, `||`) for multiple conditions.
-- Avoid deeply nested conditional expressions, as they become difficult to maintain.
+- Avoid deeply nested conditional expressions.
+- Use conditional expressions with `count` or `for_each` to control resource creation.
 
 ---
 
@@ -442,12 +610,19 @@ terraform destroy
 
 # Summary
 
-This document demonstrated:
+| Feature | Description |
+|---------|-------------|
+| Conditional Expression | Returns one of two values based on a condition |
+| Syntax | `condition ? true_value : false_value` |
+| Common Operators | `==`, `!=`, `&&`, `||` |
+| Typical Uses | Environment selection, resource creation, storage sizing, feature toggles |
 
-- What conditional expressions are.
-- The syntax of Terraform conditional expressions.
-- Using equality (`==`) and inequality (`!=`) operators.
-- Checking for empty values.
-- Combining multiple conditions using logical operators.
-- Real-world examples for selecting EC2 instance types based on environment and region.
-- Best practices for writing clean and maintainable conditional expressions.
+---
+
+# Key Takeaways
+
+- Conditional expressions allow Terraform to make decisions dynamically.
+- They reduce duplication by enabling a single configuration to support multiple environments.
+- Use the syntax `condition ? true_value : false_value`.
+- Combine conditions with logical operators for more complex decisions.
+- Conditional expressions work particularly well with the `count` meta-argument to create or skip resources based on environment or other variables.
