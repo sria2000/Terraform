@@ -1,123 +1,76 @@
 # Terraform Configurations
 
-This repository contains a collection of **44 Terraform Markdown guides** covering Terraform fundamentals through advanced topics. Each document includes explanations, practical examples, code snippets, best practices, and real-world use cases to help you learn Terraform step by step.
+This repository contains **44 Terraform guides** covering beginner to advanced Terraform concepts with practical AWS examples.
 
 Repository:
 
-**https://github.com/sria2000/Terraform/tree/main/3.%20Terraform%20Configurations**
+https://github.com/sria2000/Terraform/tree/main/3.%20Terraform%20Configurations
 
 ---
 
 # Contents
 
-| No. | Topic | Description |
-|----:|-------|-------------|
-| 1 | **firewall.md** | Creating and managing AWS Security Groups (Firewalls). |
-| 2 | **Old_new_doc_changes.md** | Terraform provider documentation changes and migration notes. |
-| 3 | **Attributes.md** | Understanding Terraform resource attributes and references. |
-| 4 | **Elastic_IP.md** | Working with AWS Elastic IPs using Terraform. |
-| 5 | **output_values.md** | Output variables and exposing resource information. |
-| 6 | **terraform_variable_definition.md** | Defining input variables in Terraform. |
-| 7 | **terraform_variables.md** | Introduction to Terraform variables and usage. |
-| 8 | **terraform_variable_assign.md** | Different methods of assigning variable values. |
-| 9 | **Data Types.md** | Terraform primitive and complex data types. |
-| 10 | **Data-types-list.md** | Working with List and Set data types. |
-| 11 | **Data-Type-Map.md** | Using Map and Object data types. |
-| 12 | **fetch-values-variables.md** | Fetching and referencing variable values. |
-| 13 | **count_meta_argument.md** | Using the `count` meta-argument to create multiple resources. |
-| 14 | **count_index.md** | Understanding `count.index` with examples. |
-| 15 | **Conditions.md** | Conditional expressions and logical operators. |
-| 16 | **functions.md** | Terraform built-in functions overview. |
-| 17 | **function-example.md** | Practical examples of Terraform functions. |
-| 18 | **local-file.md** | Creating local files using the Local Provider. |
-| 19 | **data_sources.md** | Using Terraform data sources to read existing infrastructure. |
-| 20 | **Debugging_troubleshooting_terraform.md** | Debugging Terraform and troubleshooting common issues. |
-| 21 | **Terraform_Formatting.md** | Using `terraform fmt` for consistent formatting. |
-| 22 | **load-order.md** | Terraform load order and evaluation sequence. |
-| 23 | **dynamic-block.md** | Dynamic Blocks for generating repeated nested blocks. |
-| 24 | **Terraform-validate.md** | Validating Terraform configuration using `terraform validate`. |
-| 25 | **Terraform-Taint.md** | Understanding `terraform taint` and resource recreation. |
-| 26 | **Terraform-splat.md** | Using Splat Expressions (`[*]`). |
-| 27 | **graph.md** | Visualizing dependencies with `terraform graph`. |
-| 28 | **plan-to-file.md** | Saving execution plans using `terraform plan -out`. |
-| 29 | **Terraform-Settings.md** | Terraform block, required version and required providers. |
-| 30 | **resource-target.md** | Resource Targeting using the `-target` option. |
-| 31 | **large-infra.md** | Managing large Terraform projects and reducing API calls. |
-| 32 | **zipmap.md** | Using the `zipmap()` function. |
-| 33 | **tf-comments.tf** | Writing comments in Terraform configurations. |
-| 34 | **meta-argument.md** | Terraform Resource Behaviour and Meta Arguments. |
-| 35 | **meta-argument-lifecycle.md** | Lifecycle Meta Argument (`ignore_changes`, `prevent_destroy`, etc.). |
-| 36 | **resource-dependency.md** | Explicit and Implicit Resource Dependencies. |
-| 37 | **set-list.md** | List vs Set data types explained. |
-| 38 | **for_each.md** | Managing multiple resources using `for_each`. |
-| 39 | **data_type_object.md** | Working with Map and Object data types. |
-| 40 | **input-variable-validation.md** | Validating Terraform input variables. |
-| 41 | **precondition-postcondition.md** | Preconditions and Postconditions using Lifecycle blocks. |
-| 42 | **Terraform-blocks.md** | Terraform Check Blocks and Moved Blocks. |
-| 43 | **interpolation.md** | String Interpolation and Resource References. |
-| 44 | **state-management.md** | Terraform State Management and State Commands. |
+| No | Topic |
+|----|-------|
+| 1 | [Firewall](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/firewall.md) |
+| 2 | [Old & New Documentation Changes](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Old_new_doc_changes.md) |
+| 3 | [Attributes](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Attributes.md) |
+| 4 | [Elastic IP](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Elastic_IP.md) |
+| 5 | [Output Values](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/output_values.md) |
+| 6 | [Terraform Variable Definition](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/terraform_variable_definition.md) |
+| 7 | [Terraform Variables](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/terraform_variables.md) |
+| 8 | [Terraform Variable Assignment](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/terraform_variable_assign.md) |
+| 9 | [Data Types](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Data%20Types.md) |
+| 10 | [List Data Type](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Data-types-list.md) |
+| 11 | [Map Data Type](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Data-Type-Map.md) |
+| 12 | [Fetch Values from Variables](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/fetch-values-variables.md) |
+| 13 | [Count Meta Argument](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/count_meta_argument.md) |
+| 14 | [Count Index](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/count_index.md) |
+| 15 | [Conditional Expressions](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Conditions.md) |
+| 16 | [Terraform Functions](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/functions.md) |
+| 17 | [Function Examples](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/function-example.md) |
+| 18 | [Local File Resource](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/local-file.md) |
+| 19 | [Data Sources](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/data_sources.md) |
+| 20 | [Debugging & Troubleshooting Terraform](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Debugging_troubleshooting_terraform.md) |
+| 21 | [Terraform Formatting (terraform fmt)](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform_Formatting.md) |
+| 22 | [Terraform Load Order](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/load-order.md) |
+| 23 | [Dynamic Blocks](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/dynamic-block.md) |
+| 24 | [Terraform Validate](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform-validate.md) |
+| 25 | [Terraform Taint](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform-Taint.md) |
+| 26 | [Terraform Splat Expressions](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform-splat.md) |
+| 27 | [Terraform Graph](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/graph.md) |
+| 28 | [Terraform Plan to File](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/plan-to-file.md) |
+| 29 | [Terraform Settings](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform-Settings.md) |
+| 30 | [Resource Targeting](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/resource-target.md) |
+| 31 | [Managing Large Infrastructure](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/large-infra.md) |
+| 32 | [ZipMap Function](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/zipmap.md) |
+| 33 | [Terraform Comments](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/tf-comments.tf) |
+| 34 | [Resource Behaviour & Meta Arguments](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/meta-argument.md) |
+| 35 | [Lifecycle Meta Argument](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/meta-argument-lifecycle.md) |
+| 36 | [Resource Dependencies](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/resource-dependency.md) |
+| 37 | [List & Set Data Types](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/set-list.md) |
+| 38 | [For Each Meta Argument](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/for_each.md) |
+| 39 | [Object Data Type](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/data_type_object.md) |
+| 40 | [Input Variable Validation](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/input-variable-validation.md) |
+| 41 | [Preconditions & Postconditions](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/precondition-postcondition.md) |
+| 42 | [Terraform Check Blocks & Moved Blocks](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/Terraform-blocks.md) |
+| 43 | [Interpolation & Resource References](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/interpolation.md) |
+| 44 | [Terraform State Management](https://github.com/sria2000/Terraform/blob/main/3.%20Terraform%20Configurations/state-management.md) |
 
 ---
 
-# Topics Covered
+## Learning Path
 
-This collection covers:
+The documents are arranged in a logical learning order, progressing from Terraform fundamentals to advanced topics such as:
 
-- Terraform Basics
-- Providers
-- Resources
-- Variables
-- Output Values
-- Expressions
-- Functions
-- Data Types
-- Dynamic Blocks
+- Variables and Data Types
+- Expressions and Functions
 - Meta Arguments
-- Lifecycle Rules
 - Resource Dependencies
-- Conditional Expressions
+- Lifecycle Management
 - Validation
-- Check Blocks
-- Moved Blocks
-- Interpolation
 - State Management
 - Debugging
 - Best Practices
-- Large Infrastructure Management
-- AWS Examples
 
----
-
-# Learning Path
-
-For the best learning experience, it is recommended to study the documents in the order listed above. The topics progress from beginner concepts to more advanced Terraform features.
-
----
-
-# Requirements
-
-- Terraform 1.x
-- AWS Account
-- AWS CLI (optional but recommended)
-- Basic understanding of AWS services
-
----
-
-# Author
-
-**Sriram Varadharajan**
-
-Senior Linux / DevOps / Cloud Infrastructure Engineer
-
-- 28+ years of Unix/Linux Infrastructure experience
-- Terraform
-- AWS
-- Ansible
-- DevOps
-- Automation
-
----
-
-# License
-
-This repository is intended for educational and learning purposes.
+Happy Learning!
